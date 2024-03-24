@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+body {
+        background-image: url('http://127.0.0.1:5000/static/3.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;}
+
+        ul {
+            font-family:'B Titr', Times, serif ;
+            font-weight: bold;
+            font-size: 2em;
+            list-style-type: none;
+            padding: 10px;
+            display: flex;
+            border-radius: 20px;
+            justify-content: space-evenly;
+            width: 100%;
+            text-align: center;
+            background-color: #0176a460; 
+            margin: 0; 
+        }
+        li {
+            display: inline;
+        }
+        h1{
+            font-family: 'B Titr', Times, serif;
+            font-weight: bold;
+        }
+
+   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درخواست مرخصی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div>
+        <aside>
+            <ul>
+                <li >
+                    <a href="leave-list">لیست مرخصی</a> 
+                </li>
+                <li >
+                    <a href="/members">کارمندان</a>
+                </li>
+                <li >
+                    <a href="/">خانه</a>
+                </li>
+            </ul>
+        </aside>
+        <main class="flex flex-col justify-center items-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="p-4 bg-slate-800 text-white rounded-lg mb-4">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            
+            <h1 class="text-center text-3xl mb-2">درخواست مرخصی</h1>
+            <form action="{{ url_for('request_leave') }}" method="POST" class="flex flex-col justify-center w-[50rem] bg-gray-500 bg-opacity-50 p-2 rounded-lg shadow">
+                <div class="text-center">
+                    <label class="mb-4 text-white">کارمند مورد نظر را انتخاب کنید </label>
+                    <select name="employee_id" class="w-full h-12 rounded-lg shadow px-14 bg-gray-300">
+                        <option value=""></option>
+                        {% for member in members %}
+                        <option value="{{ member.id }}">{{ member.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="text-1xl text-center">
+                    <label class="mb-4 text-white">تاریخ شروع مرخصی</label>
+                    <input type="date" name="start_date" placeholder="start_date" class="w-full h-12 rounded-lg shadow px-14 bg-gray-300">
+                </div>
+                <div class="text-1xl text-center">
+                    <label class="mb-4 text-white">تاریخ پایان مرخصی</label>
+                    <input type="date" name="end_date" placeholder="end_date" class="w-full  h-12 rounded-lg shadow px-14 bg-gray-300">
+                </div>
+                <div class="text-white">
+                    <button type="submit" class="bg-slate-800 text-white px-4 py-2 rounded-lg mt-8">ثبت</button>
+                </div>
+                
+            </form>
+        </main>
+    </div>
+</body>
+</html>

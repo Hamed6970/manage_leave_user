@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+body {
+        background-image: url('http://127.0.0.1:5000/static/01.webp');
+        background-size: cover;
+        background-repeat: no-repeat;}
+
+        ul {
+            font-family:'B Titr', Times, serif ;
+            font-weight: bold;
+            font-size: 2em;
+            color: aliceblue;
+            list-style-type: none;
+            padding: 10px;
+            display: flex;
+            border-radius: 20px;
+            justify-content: space-evenly;
+            width: 100%;
+            text-align: center;
+            background-color: #0176a460; 
+            margin: 0; 
+        }
+        li {
+            display: inline;
+        }
+   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت کارمند جدید</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div>
+        <aside>
+            <ul>
+                <li >
+                    <a href="leave-list">لیست مرخصی</a>
+                </li>
+                <li >
+                    <a href="/members">کارمندان</a>
+                </li>
+                <li >
+                    <a href="/">خانه</a>
+                </li>
+            </ul>
+        </aside>
+        <main>
+            <h1 class="text-center text-white text-3xl mb-2">ثبت کارمند جدید</h1>
+            <form action="{{ url_for('create_member') }}" method="POST">
+                <div>
+                    <input type="text" name="name" placeholder="نام و نام خانوادگی" class="w-full h-11 rounded-lg shadow p-2">
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="bg-sky-500 text-white px-4 py-2 rounded-lg">ثبت</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

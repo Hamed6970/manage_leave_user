@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+ body {
+    background-image: url('http://127.0.0.1:5000/static/5.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;}
+
+        ul {
+            font-family:'B Titr', Times, serif ;
+            font-weight: bold;
+            font-size: 2em;
+            list-style-type: none;
+            padding: 10px;
+            display: flex;
+            border-radius: 20px;
+            justify-content: space-evenly;
+            width: 100%;
+            text-align: center;
+            background-color: #0176a460; 
+            margin: 0; 
+        }
+    
+        li {
+            display: inline;
+        }
+   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست مرخصی کارمندان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body >
+    <div>
+        <aside>
+            <ul>
+                <li>
+                    <a href="leave-list">لیست مرخصی</a> 
+                </li>
+                <li >
+                    <a href="/members">کارمندان</a>
+                </li>
+                <li>
+                    <a href="/">خانه</a>
+                </li>
+            </ul>
+        </aside>
+        <main>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="p-4 bg-slate-800 text-white rounded-lg mb-4">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="mb-2">
+                <a href="/create-leave"><button type="submit" class="bg-slate-800 text-white px-4 py-2 rounded-lg">درخواست مرخصی +</button></a>
+            </div>
+            <table class="table-fixed w-full text-center">
+                <thead>
+                    <tr>
+                        <th>نام و نام خانوادگی</th>
+                        <th>تاریخ شروع مرخصی</th>
+                        <th>تاریخ پایان مرخصی</th>
+                        <th>وضعیت</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in leaves %}
+                    <tr>
+                        <td>{{ leave.employee.name }}</td>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>{{ leave.status }}</td>
+                        <td>
+                            {% if leave.status == "درحال بررسی" %}
+                            <div class="flex gap-2">
+                                <div class="">
+                                    <a href="/approve_leave/{{leave.id}}"><button type="submit" class="bg-green-800 text-white px-4 py-2 rounded-lg">قبول درخواست</button></a>
+                                </div>
+                                <div class="mb-2">
+                                    <a href="/deny_leave/{{leave.id}}"><button type="submit" class="bg-red-800 text-white px-4 py-2 rounded-lg">رد درخواست</button></a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>
